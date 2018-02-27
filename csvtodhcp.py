@@ -31,7 +31,7 @@ def parceToDhcp(infilename, skip, outfilename):
 	else:
 		print (config)
 	return
-def parceToIptablesLimits(filename, skip):
+def parceToIptablesLimits(filename, skip, outfilename):
 	# 192.168.69.199 199 6 700
 	f = open(filename,'r')
 	lineIndex = 0
@@ -47,7 +47,12 @@ def parceToIptablesLimits(filename, skip):
 				splitedLine[6].strip(),splitedLine[7].strip())
 		else:
 			sys.stderr.write ("[error] The line was excluded due some error {}\n".format(lineIndex))
-	print (config)
+	if outfilename != None:
+		ofile = open(outfilename,'w')
+		ofile.write(config)
+		ofile.close()
+	else:
+		print (config)
 	return
 
 def parceToIptablesAccess():
